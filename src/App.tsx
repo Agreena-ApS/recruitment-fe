@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import { Center, Heading } from "@chakra-ui/react";
+import { DataTable } from "./components/AgreenaTable";
+//TODO: ADD BOOKMARK ICON TO TABLE
+//TODO: ADD PAGINATION TO TABLE
+//TODO: ADD AXIOS AND SERVICE LAYER
+//TODO: ADD REACT-QUERY AND INTREGRATE WITH API
+//TODO: ADD NAVBAR ADD Favorites and List tabs
+//TODO: ADD TESTS
+//TODO: Configure setupTests file
+//TODO: BONUS -> ADD SENTRY, REACT ERROR BOUNDARY
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<>
+			<Heading textAlign="center" my="2rem">
+				Agreena
+			</Heading>
+			<Center mt="5rem" alignItems="flex-start" height="100vh">
+				<DataTable />
+			</Center>
+		</>
+	);
 }
 
 export default App;
