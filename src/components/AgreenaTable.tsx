@@ -63,7 +63,7 @@ export const DataTable = ({
 			loading
 				? columns.map((column) => ({
 						...column,
-						Cell: <Skeleton height="40px" />,
+						Cell: <Skeleton height="40px" endColor="#cddcdc" startColor="#a6cfce" />,
 				  }))
 				: columns,
 		[loading, columns]
@@ -137,7 +137,7 @@ export const DataTable = ({
 												borderLeftRadius: "10px",
 											}}
 										>
-											<Box fontWeight="500" fontSize="large" isTruncated width={cell.column.width}>
+											<Box fontWeight="500" fontSize="large" isTruncated width="100%">
 												{cell.render("Cell")}
 											</Box>
 										</Td>
@@ -149,7 +149,6 @@ export const DataTable = ({
 				</Tbody>
 			</StyledTable>
 
-			{/*PAGINATION */}
 			{paginationInfo ? (
 				<Flex justifyContent="space-between" m={4} alignItems="center">
 					<Flex>
@@ -162,6 +161,12 @@ export const DataTable = ({
 								isDisabled={loading || currentPage === 1}
 								icon={<BsChevronLeft />}
 								mr={4}
+								textColor="#1b6765"
+								backgroundColor="#a6cfce"
+								_hover={{
+									bg: "#1b6765",
+									textColor: "#fff",
+								}}
 							/>
 						</Tooltip>
 						<Tooltip label="Previous Page">
@@ -172,6 +177,12 @@ export const DataTable = ({
 								aria-label="Previous page"
 								isDisabled={loading || currentPage === 1}
 								icon={<BsChevronDoubleLeft />}
+								textColor="#1b6765"
+								backgroundColor="#a6cfce"
+								_hover={{
+									bg: "#1b6765",
+									textColor: "#fff",
+								}}
 							/>
 						</Tooltip>
 					</Flex>
@@ -200,14 +211,30 @@ export const DataTable = ({
 							defaultValue={currentPage}
 							keepWithinRange
 							errorBorderColor="blue"
+							borderColor="#a6cfce"
 						>
 							<NumberInputField />
 							<NumberInputStepper>
-								<NumberIncrementStepper />
-								<NumberDecrementStepper />
+								<NumberIncrementStepper
+									textColor="#1b6765"
+									backgroundColor="#a6cfce"
+									_hover={{
+										bg: "#1b6765",
+										textColor: "#fff",
+									}}
+								/>
+								<NumberDecrementStepper
+									textColor="#1b6765"
+									backgroundColor="#a6cfce"
+									_hover={{
+										bg: "#1b6765",
+										textColor: "#fff",
+									}}
+								/>
 							</NumberInputStepper>
 						</NumberInput>
 						<Select
+							borderColor="#a6cfce"
 							w={32}
 							disabled={loading}
 							value={perPage}
@@ -234,6 +261,12 @@ export const DataTable = ({
 								isDisabled={loading || currentPage >= paginationInfo.totalPages}
 								aria-label="Next Page"
 								icon={<BsChevronDoubleRight />}
+								textColor="#1b6765"
+								backgroundColor="#a6cfce"
+								_hover={{
+									bg: "#1b6765",
+									textColor: "#fff",
+								}}
 							/>
 						</Tooltip>
 						<Tooltip label="Last Page">
@@ -243,6 +276,12 @@ export const DataTable = ({
 								isDisabled={loading || currentPage >= paginationInfo.totalPages}
 								icon={<BsChevronRight />}
 								ml={4}
+								backgroundColor="#a6cfce"
+								textColor="#1b6765"
+								_hover={{
+									bg: "#1b6765",
+									textColor: "#fff",
+								}}
 							/>
 						</Tooltip>
 					</Flex>
