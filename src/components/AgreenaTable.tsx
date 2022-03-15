@@ -1,6 +1,4 @@
-import { useMemo } from "react";
 import {
-  Table,
   Thead,
   Tbody,
   Tr,
@@ -17,336 +15,55 @@ import {
   NumberInputField,
   Select,
 } from "@chakra-ui/react";
-import { useTable, usePagination } from "react-table";
-import styled from "@emotion/styled";
+import { useTable, usePagination, Column } from "react-table";
 import {
-  BsBookmarkHeart,
   BsChevronLeft,
   BsChevronDoubleLeft,
   BsChevronDoubleRight,
   BsChevronRight,
 } from "react-icons/bs";
+import { StyledTable } from "./styled";
 
-const StyledTable = styled(Table)`
-  border-collapse: separate;
-  border-spacing: 0 10px;
-`;
+type Props = {
+  columns: Column<object>[];
+  data: any[];
+  paginationInfo: Meta;
+  perPage: number;
+  currentPage: number;
+  fetchNextPage: React.Dispatch<React.SetStateAction<number>>;
+  perPageChange: React.Dispatch<React.SetStateAction<number>>;
+};
 
-export const DataTable = () => {
-  const data = useMemo(
-    () => [
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-      {
-        XQ: "inches",
-        W: "millimetres (mm)",
-        E: "ASDSAD",
-        R: `1212`,
-        T: "121212",
-        Y: "4141414",
-      },
-    ],
-    []
-  );
-
-  const columns = useMemo(
-    () => [
-      {
-        Header: "UNIQUE ID",
-        accessor: "XQ",
-      },
-      {
-        Header: "ORIGINATOR",
-        accessor: "W",
-      },
-      {
-        Header: "ORIGINATOR COUNTRY",
-        accessor: "E",
-      },
-      {
-        Header: "OWNER",
-        accessor: "R",
-      },
-      {
-        Header: "OWNER COUNTRY",
-        accessor: "T",
-      },
-      {
-        Header: "STATUS",
-        accessor: "Y",
-      },
-      {
-        accessor: "color",
-        Header: "",
-        Cell: () => (
-          <IconButton
-            aria-label="Add to favorites"
-            variant="unstyled"
-            fontSize="2xl"
-            display="flex"
-            icon={<BsBookmarkHeart />}
-          />
-        ),
-      },
-    ],
-    []
-  );
-
+export const DataTable = ({
+  columns,
+  data,
+  paginationInfo,
+  fetchNextPage,
+  perPageChange,
+  perPage,
+  currentPage,
+}: Props) => {
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     prepareRow,
     page,
-    canPreviousPage,
-    canNextPage,
     pageOptions,
     pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
   } = useTable(
     {
       //@ts-ignore
       columns,
       data,
-      initialState: { pageIndex: 0 },
+      manualPagination: true,
+      pageCount: paginationInfo.totalPages,
+      initialState: { pageIndex: currentPage - 1, pageSize: perPage },
     },
     usePagination
   );
-
+  console.log({ perPage });
   return (
     <Flex
       flexDirection="column"
@@ -358,8 +75,8 @@ export const DataTable = () => {
         <Thead>
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <Th>
+              {headerGroup.headers.map((column, index) => (
+                <Th key={index}>
                   <Text color="#8D8D8D" fontWeight="bold">
                     {column.render("Header")}
                   </Text>
@@ -372,7 +89,12 @@ export const DataTable = () => {
           {page.map((row) => {
             prepareRow(row);
             return (
-              <Tr {...row.getRowProps()} bgColor="#FFFFFF" borderRadius="20px">
+              <Tr
+                {...row.getRowProps()}
+                key={(row.original as any).uniqueNumber}
+                bgColor="#FFFFFF"
+                borderRadius="20px"
+              >
                 {row.cells.map((cell) => (
                   //@ts-ignore
                   <Td
@@ -395,40 +117,44 @@ export const DataTable = () => {
           })}
         </Tbody>
       </StyledTable>
-
+      {/*PAGINATION */}
       <Flex justifyContent="space-between" m={4} alignItems="center">
         <Flex>
           <Tooltip label="First Page">
             <IconButton
-              onClick={() => gotoPage(0)}
+              onClick={() => {
+                fetchNextPage(1);
+              }}
               aria-label="First Page"
-              isDisabled={!canPreviousPage}
+              isDisabled={currentPage === 1}
               icon={<BsChevronLeft />}
               mr={4}
             />
           </Tooltip>
           <Tooltip label="Previous Page">
             <IconButton
-              onClick={previousPage}
+              onClick={() => {
+                fetchNextPage(currentPage - 1);
+              }}
               aria-label="Previous page"
-              isDisabled={!canPreviousPage}
+              isDisabled={currentPage === 1}
               icon={<BsChevronDoubleLeft />}
             />
           </Tooltip>
         </Flex>
 
         <Flex alignItems="center">
-          <Text flexShrink="0" mr={8}>
-            Page{" "}
-            <Text fontWeight="bold" as="span">
-              {pageIndex + 1}
-            </Text>{" "}
-            of{" "}
-            <Text fontWeight="bold" as="span">
+          <Text flexShrink="0" mx={10}>
+            Page
+            <Text fontWeight="bold" as="span" mx={1}>
+              {currentPage}
+            </Text>
+            of
+            <Text fontWeight="bold" as="span" mx={1}>
               {pageOptions.length}
             </Text>
           </Text>
-          <Text flexShrink="0">Go to page:</Text>{" "}
+          <Text flexShrink="0">Go to page:</Text>
           <NumberInput
             ml={2}
             mr={8}
@@ -436,10 +162,11 @@ export const DataTable = () => {
             min={1}
             max={pageOptions.length}
             onChange={(value: any) => {
-              const page = value ? value - 1 : 0;
-              gotoPage(page);
+              console.log({ value });
+              fetchNextPage(value);
             }}
-            defaultValue={pageIndex + 1}
+            value={currentPage}
+            defaultValue={currentPage}
           >
             <NumberInputField />
             <NumberInputStepper>
@@ -449,14 +176,16 @@ export const DataTable = () => {
           </NumberInput>
           <Select
             w={32}
-            value={pageSize}
+            value={perPage}
             onChange={(e) => {
               setPageSize(Number(e.target.value));
+              perPageChange(Number(e.target.value));
             }}
+            mx={10}
           >
-            {[10, 20, 30, 40, 50].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                Show {pageSize}
+            {[10, 20, 30, 40, 50].map((perPage) => (
+              <option key={perPage} value={perPage}>
+                Show {perPage}
               </option>
             ))}
           </Select>
@@ -465,17 +194,19 @@ export const DataTable = () => {
         <Flex>
           <Tooltip label="Next Page">
             <IconButton
-              onClick={nextPage}
-              isDisabled={!canNextPage}
+              onClick={() => {
+                fetchNextPage(currentPage + 1);
+              }}
+              isDisabled={currentPage >= paginationInfo.totalPages}
               aria-label="Next Page"
               icon={<BsChevronDoubleRight />}
             />
           </Tooltip>
           <Tooltip label="Last Page">
             <IconButton
-              onClick={() => gotoPage(pageCount - 1)}
+              onClick={() => fetchNextPage(pageCount)}
               aria-label="Last Page"
-              isDisabled={!canNextPage}
+              isDisabled={currentPage >= paginationInfo.totalPages}
               icon={<BsChevronRight />}
               ml={4}
             />
