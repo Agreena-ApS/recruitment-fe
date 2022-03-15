@@ -1,6 +1,7 @@
 import { Tooltip, Flex, Center, IconButton, Text, UseToastOptions } from "@chakra-ui/react";
 import { AiOutlineCopy } from "react-icons/ai";
 import { BsStarFill, BsStar } from "react-icons/bs";
+import { PRIMARY_COLOR } from "../styles";
 
 type Props = {
 	favoriteList: Certificate[] | undefined;
@@ -50,7 +51,7 @@ export const createColumns = ({ favoriteList, setFavorite, toast }: Props) => {
 							fontSize="xl"
 							_focus={{ outline: "none" }}
 							icon={<AiOutlineCopy />}
-							textColor="#1b6765"
+							textColor={PRIMARY_COLOR}
 						/>
 					</Flex>
 				</Tooltip>
@@ -108,7 +109,13 @@ export const createColumns = ({ favoriteList, setFavorite, toast }: Props) => {
 						justifyContent="flex-end"
 						width="100%"
 						_focus={{ outline: "none" }}
-						icon={favoriteCertificate ? <BsStarFill fill="#1b6765" /> : <BsStar fill="#1b6765" />}
+						icon={
+							favoriteCertificate ? (
+								<BsStarFill fill={PRIMARY_COLOR} />
+							) : (
+								<BsStar fill={PRIMARY_COLOR} />
+							)
+						}
 					/>
 				);
 			},

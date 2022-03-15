@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import { LinkProps, useResolvedPath, useMatch, Link } from "react-router-dom";
+import { PRIMARY_COLOR, SECONDARY_COLOR } from "../styles";
 
 export const CustomLink = ({ children, to }: LinkProps) => {
 	const resolved = useResolvedPath(to);
@@ -8,12 +9,12 @@ export const CustomLink = ({ children, to }: LinkProps) => {
 	return (
 		<Button
 			fontWeight="bold"
-			bg={match ? "#1b6765" : "#a6cfce"}
+			bg={match ? PRIMARY_COLOR : SECONDARY_COLOR}
 			_hover={{
-				bg: "#1b6765",
+				bg: PRIMARY_COLOR,
 				textColor: "#fff",
 			}}
-			textColor={match ? "#fff" : "#1b6765"}
+			textColor={match ? "#fff" : PRIMARY_COLOR}
 		>
 			<Link to={to}>{children}</Link>
 		</Button>

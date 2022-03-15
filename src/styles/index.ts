@@ -1,5 +1,8 @@
 import { theme as origTheme, extendTheme } from "@chakra-ui/react";
 
+export const PRIMARY_COLOR = "#1b6765";
+export const SECONDARY_COLOR = "#a6cfce";
+
 const themeOptions = extendTheme({
 	styles: {
 		global: {
@@ -17,16 +20,14 @@ const themeOptions = extendTheme({
 		Alert: {
 			variants: {
 				solid: (props: any) => {
-					// only applies to `subtle` variant
 					const { colorScheme: c } = props;
 					if (c !== "green") {
-						// use original definition for all color schemes except "blue"
 						return origTheme.components.Alert.variants.solid(props);
 					}
 					return {
 						container: {
-							bg: `#a6cfce`,
-							color: `#1b6765`,
+							bg: SECONDARY_COLOR,
+							color: PRIMARY_COLOR,
 						},
 					};
 				},

@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "react-query";
-import { Flex, Text, useToast } from "@chakra-ui/react";
+import { Flex, useToast } from "@chakra-ui/react";
 
 import { fetchCertificateList } from "../api";
 import { DataTable } from "../components/AgreenaTable";
 import { useLocalStorage } from "react-use";
 import { createColumns } from "../utils";
+import { ErrorMessage } from "../components/ErrorMessage";
 
 const CertificateList = () => {
 	const toast = useToast();
@@ -26,7 +27,7 @@ const CertificateList = () => {
 	if (error) {
 		return (
 			<Flex mt="5rem" alignItems="flex-start" justifyContent="center">
-				<Text>Something went wrong!!!</Text>
+				<ErrorMessage />
 			</Flex>
 		);
 	}

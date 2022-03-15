@@ -6,7 +6,6 @@ import Navbar from "./components/Navbar";
 import Favorites from "./pages/Favorites";
 
 //TODO: ADD DEBOUNCE TO PAGE SETING
-//TODO: FIX JUMPY page total count
 //TODO: ADD TESTS
 //TODO: Configure setupTests file
 //TODO: BONUS -> ADD SENTRY, REACT ERROR BOUNDARY
@@ -20,7 +19,6 @@ const App = () => {
 					<Route path="/certification/favorites" element={<Favorites />} />
 				</Routes>
 			</BrowserRouter>
-			,
 		</Flex>
 	);
 };

@@ -4,6 +4,7 @@ import { Flex, Heading, Image } from "@chakra-ui/react";
 import Logo from "../static/agreena-logo.svg";
 import { PATHS } from "../constants";
 import { CustomLink } from "./CustomLink";
+import { PRIMARY_COLOR } from "../styles";
 
 const Navbar = () => {
 	const location = useLocation();
@@ -18,7 +19,7 @@ const Navbar = () => {
 				</Link>
 			</Heading>
 			<Flex justifyContent="space-between" width="90%" alignItems="center">
-				<Heading as="h1" fontSize="3xl" color="#1b6765">
+				<Heading as="h1" fontSize="3xl" color={PRIMARY_COLOR}>
 					{currentPageName}
 				</Heading>
 				<Flex gap="1rem">
