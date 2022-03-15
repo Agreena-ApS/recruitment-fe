@@ -6,11 +6,10 @@ import Navbar from "./components/Navbar";
 
 //TODO: ADD DEBOUNCE TO PAGE SETING
 //TODO: FIX JUMPY page total count
-//TODO: ADD NAVBAR ADD Favorites and List tabs
 //TODO: ADD TESTS
 //TODO: Configure setupTests file
 //TODO: BONUS -> ADD SENTRY, REACT ERROR BOUNDARY
-function App() {
+const App = () => {
   return (
     <Flex width="100%" height="100vh" flexDirection="column">
       <BrowserRouter>
@@ -22,6 +21,6 @@ function App() {
       ,
     </Flex>
   );
-}
+};
 
 export default App;

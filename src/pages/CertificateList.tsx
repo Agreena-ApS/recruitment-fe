@@ -1,14 +1,23 @@
 import React, { useMemo, useState } from "react";
 import { useQuery } from "react-query";
-import { Flex, IconButton, Text, Tooltip, useToast } from "@chakra-ui/react";
+import {
+  Center,
+  Flex,
+  IconButton,
+  Text,
+  Tooltip,
+  useToast,
+} from "@chakra-ui/react";
 import { BsStar } from "react-icons/bs";
 import { AiOutlineCopy } from "react-icons/ai";
 
 import { fetchCertificateList } from "../api";
 import { DataTable } from "../components/AgreenaTable";
+import { useLocalStorage } from "react-use";
 
 const CertificateList = () => {
   const toast = useToast();
+  const [value, setValue] = useLocalStorage<Certificate[]>("favorites");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
@@ -23,22 +32,21 @@ const CertificateList = () => {
       {
         Header: "UNIQUE ID",
         accessor: "uniqueNumber",
-        width: "250px",
+        width: "220px",
         Cell: ({ value }: any) => (
           <Tooltip
             label={
               <Flex p={1} alignItems="center" justifyContent="center">
                 <Text mr={1} fontSize="md">
-                  Click to copy the certificate ID -
+                  Click to copy the certificate ID
                 </Text>
-                <AiOutlineCopy size={24} />
               </Flex>
             }
             hasArrow
             p="0.5rem"
             borderRadius="0.5rem"
           >
-            <Text
+            <Center
               cursor="pointer"
               onClick={() => {
                 navigator.clipboard.writeText(value);
@@ -52,8 +60,14 @@ const CertificateList = () => {
                 });
               }}
             >
-              {value}
-            </Text>
+              <Text isTruncated>{value}</Text>
+              <IconButton
+                variant="unstyled"
+                aria-label="Copy ID"
+                fontSize="xl"
+                icon={<AiOutlineCopy />}
+              />
+            </Center>
           </Tooltip>
         ),
       },
@@ -85,18 +99,26 @@ const CertificateList = () => {
       {
         accessor: "bookmark",
         Header: "",
-        Cell: () => (
-          <IconButton
-            aria-label="Add to favorites"
-            variant="unstyled"
-            fontSize="2xl"
-            display="flex"
-            icon={<BsStar />}
-          />
-        ),
+        Cell: ({ row }) => {
+          return (
+            <IconButton
+              onClick={() =>
+                setValue(() => [
+                  ...((value as Certificate[]) ?? []),
+                  row.original,
+                ])
+              }
+              aria-label="Add to favorites"
+              variant="unstyled"
+              fontSize="2xl"
+              display="flex"
+              icon={<BsStar />}
+            />
+          );
+        },
       },
     ],
-    []
+    [setValue, toast, value]
   );
 
   if (error) {
