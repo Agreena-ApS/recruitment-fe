@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useQuery } from "react-query";
-import { Flex, IconButton } from "@chakra-ui/react";
-import { BsBookmarkHeart } from "react-icons/bs";
+import { Flex, IconButton, Text } from "@chakra-ui/react";
+import { BsStar } from "react-icons/bs";
 
 import { fetchCertificateList } from "../api";
 import { DataTable } from "../components/AgreenaTable";
@@ -20,10 +20,12 @@ const CertificateList = () => {
       {
         Header: "UNIQUE ID",
         accessor: "uniqueNumber",
+        width: "250px",
       },
       {
         Header: "ORIGINATOR",
         accessor: "companyName",
+        width: "250px",
       },
       {
         Header: "ORIGINATOR COUNTRY",
@@ -51,27 +53,32 @@ const CertificateList = () => {
             variant="unstyled"
             fontSize="2xl"
             display="flex"
-            icon={<BsBookmarkHeart />}
+            icon={<BsStar />}
           />
         ),
       },
     ],
     []
   );
-  //TODO: ADD LOADER
+
+  if (error) {
+    <Flex mt="5rem" alignItems="flex-start" justifyContent="center">
+      <Text>Something went wrong!!!</Text>
+    </Flex>;
+  }
+
   return (
     <Flex mt="5rem" alignItems="flex-start" justifyContent="center">
-      {data?.result ? (
-        <DataTable
-          data={data?.result.data || []}
-          columns={columns}
-          paginationInfo={data.result.meta}
-          fetchNextPage={setCurrentPage}
-          currentPage={currentPage}
-          perPage={perPage}
-          perPageChange={setPerPage}
-        />
-      ) : null}
+      <DataTable
+        data={data?.result.data || []}
+        columns={columns}
+        paginationInfo={data?.result.meta}
+        fetchNextPage={setCurrentPage}
+        currentPage={currentPage}
+        perPage={perPage}
+        perPageChange={setPerPage}
+        loading={isLoading}
+      />
     </Flex>
   );
 };

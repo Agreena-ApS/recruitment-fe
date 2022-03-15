@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CERTIFICATES_URL } from "../constants/endpoints"
+import { CERTIFICATES_URL } from "../constants"
 
 
 

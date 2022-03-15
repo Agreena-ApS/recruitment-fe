@@ -1,3 +1,4 @@
+import React, { useCallback } from "react";
 import {
   Thead,
   Tbody,
@@ -14,6 +15,8 @@ import {
   NumberIncrementStepper,
   NumberInputField,
   Select,
+  Skeleton,
+  Box,
 } from "@chakra-ui/react";
 import { useTable, usePagination, Column } from "react-table";
 import {
@@ -22,16 +25,19 @@ import {
   BsChevronDoubleRight,
   BsChevronRight,
 } from "react-icons/bs";
+
 import { StyledTable } from "./styled";
+import { DEFAULT_PAY_NUMBER } from "../constants";
 
 type Props = {
   columns: Column<object>[];
   data: any[];
-  paginationInfo: Meta;
+  paginationInfo?: Meta;
   perPage: number;
   currentPage: number;
   fetchNextPage: React.Dispatch<React.SetStateAction<number>>;
   perPageChange: React.Dispatch<React.SetStateAction<number>>;
+  loading: boolean;
 };
 
 export const DataTable = ({
@@ -42,28 +48,54 @@ export const DataTable = ({
   perPageChange,
   perPage,
   currentPage,
+  loading,
 }: Props) => {
+  const latestPageCount = React.useRef(
+    !!paginationInfo?.totalPages
+      ? paginationInfo?.totalPages
+      : DEFAULT_PAY_NUMBER
+  ).current;
+
+  const tableData = React.useMemo(
+    () => (loading ? Array(perPage).fill("") : data),
+    [loading, perPage, data]
+  );
+  const tableColumns = React.useMemo(
+    () =>
+      loading
+        ? columns.map((column) => ({
+            ...column,
+            Cell: <Skeleton height="30px" />,
+          }))
+        : columns,
+    [loading, columns]
+  );
+
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     prepareRow,
     page,
-    pageOptions,
     pageCount,
     setPageSize,
   } = useTable(
     {
       //@ts-ignore
-      columns,
-      data,
+      columns: tableColumns,
+      data: tableData,
       manualPagination: true,
-      pageCount: paginationInfo.totalPages,
-      initialState: { pageIndex: currentPage - 1, pageSize: perPage },
+      pageCount: paginationInfo?.totalPages ?? latestPageCount,
     },
     usePagination
   );
-  console.log({ perPage });
+
+  const changeHandler = useCallback(
+    (value: string) => {
+      fetchNextPage(Number(value));
+    },
+    [fetchNextPage]
+  );
   return (
     <Flex
       flexDirection="column"
@@ -86,37 +118,44 @@ export const DataTable = ({
           ))}
         </Thead>
         <Tbody {...getTableBodyProps()}>
-          {page.map((row) => {
+          {page.map((row, index) => {
             prepareRow(row);
             return (
               <Tr
                 {...row.getRowProps()}
-                key={(row.original as any).uniqueNumber}
-                bgColor="#FFFFFF"
-                borderRadius="20px"
+                key={(row.original as any).uniqueNumber || index}
+                bgColor={loading ? "transparent" : "#fff"}
               >
-                {row.cells.map((cell) => (
-                  //@ts-ignore
-                  <Td
-                    {...cell.getCellProps()}
-                    border="1px solid transparent"
-                    _last={{
-                      borderRightRadius: "10px",
-                    }}
-                    _first={{
-                      borderLeftRadius: "10px",
-                    }}
-                  >
-                    <Text fontWeight="500" fontSize="large">
-                      {cell.render("Cell")}
-                    </Text>
-                  </Td>
-                ))}
+                {row.cells.map((cell) => {
+                  return (
+                    <Td
+                      width={cell.column.width ?? ""}
+                      {...cell.getCellProps()}
+                      border="1px solid transparent"
+                      _last={{
+                        borderRightRadius: "10px",
+                      }}
+                      _first={{
+                        borderLeftRadius: "10px",
+                      }}
+                    >
+                      <Box
+                        fontWeight="500"
+                        fontSize="large"
+                        isTruncated
+                        width={cell.column.width}
+                      >
+                        {cell.render("Cell")}
+                      </Box>
+                    </Td>
+                  );
+                })}
               </Tr>
             );
           })}
         </Tbody>
       </StyledTable>
+
       {/*PAGINATION */}
       <Flex justifyContent="space-between" m={4} alignItems="center">
         <Flex>
@@ -126,7 +165,7 @@ export const DataTable = ({
                 fetchNextPage(1);
               }}
               aria-label="First Page"
-              isDisabled={currentPage === 1}
+              isDisabled={loading || currentPage === 1}
               icon={<BsChevronLeft />}
               mr={4}
             />
@@ -137,7 +176,7 @@ export const DataTable = ({
                 fetchNextPage(currentPage - 1);
               }}
               aria-label="Previous page"
-              isDisabled={currentPage === 1}
+              isDisabled={loading || currentPage === 1}
               icon={<BsChevronDoubleLeft />}
             />
           </Tooltip>
@@ -151,22 +190,22 @@ export const DataTable = ({
             </Text>
             of
             <Text fontWeight="bold" as="span" mx={1}>
-              {pageOptions.length}
+              {paginationInfo?.totalPages ?? latestPageCount}
             </Text>
           </Text>
           <Text flexShrink="0">Go to page:</Text>
           <NumberInput
+            isDisabled={loading}
             ml={2}
             mr={8}
             w={28}
             min={1}
-            max={pageOptions.length}
-            onChange={(value: any) => {
-              console.log({ value });
-              fetchNextPage(value);
-            }}
+            max={paginationInfo?.totalPages ?? latestPageCount}
+            onChange={changeHandler}
             value={currentPage}
             defaultValue={currentPage}
+            keepWithinRange
+            errorBorderColor="blue"
           >
             <NumberInputField />
             <NumberInputStepper>
@@ -176,6 +215,7 @@ export const DataTable = ({
           </NumberInput>
           <Select
             w={32}
+            disabled={loading}
             value={perPage}
             onChange={(e) => {
               setPageSize(Number(e.target.value));
@@ -190,28 +230,29 @@ export const DataTable = ({
             ))}
           </Select>
         </Flex>
-
-        <Flex>
-          <Tooltip label="Next Page">
-            <IconButton
-              onClick={() => {
-                fetchNextPage(currentPage + 1);
-              }}
-              isDisabled={currentPage >= paginationInfo.totalPages}
-              aria-label="Next Page"
-              icon={<BsChevronDoubleRight />}
-            />
-          </Tooltip>
-          <Tooltip label="Last Page">
-            <IconButton
-              onClick={() => fetchNextPage(pageCount)}
-              aria-label="Last Page"
-              isDisabled={currentPage >= paginationInfo.totalPages}
-              icon={<BsChevronRight />}
-              ml={4}
-            />
-          </Tooltip>
-        </Flex>
+        {paginationInfo ? (
+          <Flex>
+            <Tooltip label="Next Page">
+              <IconButton
+                onClick={() => {
+                  fetchNextPage(currentPage + 1);
+                }}
+                isDisabled={loading || currentPage >= paginationInfo.totalPages}
+                aria-label="Next Page"
+                icon={<BsChevronDoubleRight />}
+              />
+            </Tooltip>
+            <Tooltip label="Last Page">
+              <IconButton
+                onClick={() => fetchNextPage(pageCount)}
+                aria-label="Last Page"
+                isDisabled={loading || currentPage >= paginationInfo.totalPages}
+                icon={<BsChevronRight />}
+                ml={4}
+              />
+            </Tooltip>
+          </Flex>
+        ) : null}
       </Flex>
     </Flex>
   );
