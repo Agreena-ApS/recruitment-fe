@@ -65,7 +65,7 @@ export const DataTable = ({
       loading
         ? columns.map((column) => ({
             ...column,
-            Cell: <Skeleton height="30px" />,
+            Cell: <Skeleton height="40px" />,
           }))
         : columns,
     [loading, columns]
@@ -109,7 +109,12 @@ export const DataTable = ({
             <Tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column, index) => (
                 <Th key={index}>
-                  <Text color="#8D8D8D" fontWeight="bold">
+                  <Text
+                    color="#8D8D8D"
+                    fontWeight="bold"
+                    verticalAlign="bottom"
+                    letterSpacing="wide"
+                  >
                     {column.render("Header")}
                   </Text>
                 </Th>

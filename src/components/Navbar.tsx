@@ -10,9 +10,12 @@ const CustomLink = ({ children, to }: LinkProps) => {
 
   return (
     <Button
-      bg="#fff"
       fontWeight="400"
-      backgroundColor={match ? "#1b6765" : ""}
+      bg={match ? "#1b6765" : "gray.200"}
+      _hover={{
+        bg: "#1b6765",
+        textColor: "#fff",
+      }}
       textColor={match ? "#fff" : ""}
     >
       <Link to={to}>{children}</Link>
