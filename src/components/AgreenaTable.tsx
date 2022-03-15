@@ -37,7 +37,7 @@ type Props = {
 	currentPage: number;
 	fetchNextPage: React.Dispatch<React.SetStateAction<number>>;
 	perPageChange: React.Dispatch<React.SetStateAction<number>>;
-	loading: boolean;
+	loading?: boolean;
 };
 
 export const DataTable = ({
