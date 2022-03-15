@@ -1,8 +1,8 @@
 import React from "react";
 import { Flex, Heading } from "@chakra-ui/react";
-import { DataTable } from "./components/AgreenaTable";
-//TODO: ADD PAGINATION TO TABLE
-//TODO: ADD AXIOS AND SERVICE LAYER
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CertificateList from "./pages/CertificateList";
+
 //TODO: ADD REACT-QUERY AND INTREGRATE WITH API
 //TODO: ADD NAVBAR ADD Favorites and List tabs
 //TODO: ADD TESTS
@@ -14,9 +14,12 @@ function App() {
       <Heading textAlign="center" my="2rem">
         Agreena
       </Heading>
-      <Flex mt="5rem" alignItems="flex-start" justifyContent="center">
-        <DataTable />
-      </Flex>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<CertificateList />} />
+        </Routes>
+      </BrowserRouter>
+      ,
     </Flex>
   );
 }
