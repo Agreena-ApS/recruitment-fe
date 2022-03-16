@@ -107,7 +107,7 @@ export const DataTable = ({
       justifyContent="center"
       align="center"
     >
-      <StyledTable {...getTableProps()} width="90%">
+      <StyledTable {...getTableProps()} width="90%" data-testid="agreena-table">
         <Thead>
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()}>
@@ -172,6 +172,7 @@ export const DataTable = ({
           <Flex>
             <Tooltip label="First Page">
               <IconButton
+                data-testid="first-page"
                 onClick={() => {
                   fetchNextPage(1);
                 }}
@@ -189,6 +190,7 @@ export const DataTable = ({
             </Tooltip>
             <Tooltip label="Previous Page">
               <IconButton
+                data-testid="previous-page"
                 onClick={() => {
                   fetchNextPage(currentPage - 1);
                 }}
@@ -274,6 +276,7 @@ export const DataTable = ({
             <Flex>
               <Tooltip label="Next Page">
                 <IconButton
+                  data-testid="next-page"
                   onClick={() => {
                     fetchNextPage(currentPage + 1);
                   }}
@@ -292,6 +295,7 @@ export const DataTable = ({
               </Tooltip>
               <Tooltip label="Last Page">
                 <IconButton
+                  data-testid="last-page"
                   onClick={() => fetchNextPage(pageCount)}
                   aria-label="Last Page"
                   isDisabled={

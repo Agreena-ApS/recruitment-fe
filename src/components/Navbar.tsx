@@ -21,7 +21,12 @@ const Navbar = () => {
         </Link>
       </Heading>
       <Flex justifyContent="space-between" width="90%" alignItems="center">
-        <Heading as="h1" fontSize="3xl" color={PRIMARY_COLOR}>
+        <Heading
+          as="h1"
+          fontSize="3xl"
+          color={PRIMARY_COLOR}
+          data-testid="page-name"
+        >
           {currentPageName}
         </Heading>
         <Flex gap="1rem">

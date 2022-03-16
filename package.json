@@ -32,7 +32,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "e2e-test": "cypress open",
+    "test-coverage": "npm test a -- --coverage"
   },
   "eslintConfig": {
     "extends": [
@@ -54,6 +56,7 @@
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.6",
-    "@types/react-table": "^7.7.9"
+    "@types/react-table": "^7.7.9",
+    "cypress": "^9.5.2"
   }
 }
