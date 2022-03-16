@@ -20,7 +20,7 @@ const Navbar = () => {
           <Image src={Logo} />
         </Link>
       </Heading>
-      <Flex justifyContent="space-between" width="90%" alignItems="center">
+      <Flex justifyContent="space-between" width="1300px" alignItems="center">
         <Heading
           as="h1"
           fontSize="3xl"

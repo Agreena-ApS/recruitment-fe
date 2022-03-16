@@ -101,67 +101,69 @@ export const DataTable = ({
   );
 
   return (
-    <Flex
-      flexDirection="column"
-      width="100%"
-      justifyContent="center"
-      align="center"
-    >
-      <StyledTable {...getTableProps()} width="90%" data-testid="agreena-table">
-        <Thead>
-          {headerGroups.map((headerGroup) => (
-            <Tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column, index) => (
-                <Th key={index}>
-                  <Text
-                    color="#8D8D8D"
-                    fontWeight="bold"
-                    verticalAlign="bottom"
-                    fontSize="16px"
-                  >
-                    {column.render("Header")}
-                  </Text>
-                </Th>
-              ))}
-            </Tr>
-          ))}
-        </Thead>
-        <Tbody {...getTableBodyProps()}>
-          {page.map((row, index) => {
-            prepareRow(row);
-            return (
-              <Tr
-                {...row.getRowProps()}
-                key={(row.original as any).uniqueNumber || index}
-                bgColor={loading ? "transparent" : "#fff"}
-              >
-                {row.cells.map((cell) => {
-                  return (
-                    <Td
-                      width={cell.column.width ?? ""}
-                      {...cell.getCellProps()}
-                      border="1px solid transparent"
-                      _last={{
-                        borderRightRadius: "10px",
-                      }}
-                      _first={{
-                        borderLeftRadius: "10px",
-                      }}
+    <Flex flexDirection="column" width="1300px">
+      <Flex
+        flexDirection="column"
+        width="100%"
+        justifyContent="center"
+        align="center"
+      >
+        <StyledTable {...getTableProps()} data-testid="agreena-table">
+          <Thead>
+            {headerGroups.map((headerGroup) => (
+              <Tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column, index) => (
+                  <Th key={index}>
+                    <Text
+                      color="#8D8D8D"
+                      fontWeight="bold"
+                      verticalAlign="bottom"
+                      fontSize="16px"
                     >
-                      <Box fontWeight="500" fontSize="large" width="100%">
-                        {cell.render("Cell")}
-                      </Box>
-                    </Td>
-                  );
-                })}
+                      {column.render("Header")}
+                    </Text>
+                  </Th>
+                ))}
               </Tr>
-            );
-          })}
-        </Tbody>
-      </StyledTable>
+            ))}
+          </Thead>
+          <Tbody {...getTableBodyProps()}>
+            {page.map((row, index) => {
+              prepareRow(row);
+              return (
+                <Tr
+                  {...row.getRowProps()}
+                  key={(row.original as any).uniqueNumber || index}
+                  bgColor={loading ? "transparent" : "#fff"}
+                >
+                  {row.cells.map((cell) => {
+                    return (
+                      <Td
+                        height="40px"
+                        width={cell.column.width ?? ""}
+                        {...cell.getCellProps()}
+                        border="1px solid transparent"
+                        _last={{
+                          borderRightRadius: "10px",
+                        }}
+                        _first={{
+                          borderLeftRadius: "10px",
+                        }}
+                      >
+                        <Box fontWeight="500" fontSize="large" width="100%">
+                          {cell.render("Cell")}
+                        </Box>
+                      </Td>
+                    );
+                  })}
+                </Tr>
+              );
+            })}
+          </Tbody>
+        </StyledTable>
 
-      {!data.length && !loading ? <ErrorMessage /> : null}
-
+        {!data.length && !loading ? <ErrorMessage /> : null}
+      </Flex>
       {!hidePagination && (
         <Flex justifyContent="space-between" m={4} alignItems="center">
           <Flex>
@@ -209,13 +211,12 @@ export const DataTable = ({
                 {currentPage}
               </Text>
               of
-              <Text fontWeight="bold" as="span" mx={1}>
+              <Text fontWeight="bold" as="span" mx={1} textAlign="center">
                 {paginationInfo?.totalPages ?? "\u00a0\u00a0"}
               </Text>
             </Text>
             <Text flexShrink="0">Go to page:</Text>
             <NumberInput
-              isDisabled={loading}
               ml={2}
               mr={8}
               w={28}
@@ -268,47 +269,49 @@ export const DataTable = ({
             </Select>
           </Flex>
 
-          {paginationInfo && (
-            <Flex>
-              <Tooltip label="Next Page">
-                <IconButton
-                  data-testid="next-page"
-                  onClick={() => {
-                    fetchNextPage(currentPage + 1);
-                  }}
-                  isDisabled={
-                    loading || currentPage >= paginationInfo.totalPages
-                  }
-                  aria-label="Next Page"
-                  icon={<BsChevronDoubleRight />}
-                  textColor={PRIMARY_COLOR}
-                  backgroundColor={SECONDARY_COLOR}
-                  _hover={{
-                    bg: { PRIMARY_COLOR },
-                    textColor: "#fff",
-                  }}
-                />
-              </Tooltip>
-              <Tooltip label="Last Page">
-                <IconButton
-                  data-testid="last-page"
-                  onClick={() => fetchNextPage(pageCount)}
-                  aria-label="Last Page"
-                  isDisabled={
-                    loading || currentPage >= paginationInfo.totalPages
-                  }
-                  icon={<BsChevronRight />}
-                  ml={4}
-                  backgroundColor={SECONDARY_COLOR}
-                  textColor={PRIMARY_COLOR}
-                  _hover={{
-                    bg: { PRIMARY_COLOR },
-                    textColor: "#fff",
-                  }}
-                />
-              </Tooltip>
-            </Flex>
-          )}
+          <Flex>
+            <Tooltip label="Next Page">
+              <IconButton
+                data-testid="next-page"
+                onClick={() => {
+                  fetchNextPage(currentPage + 1);
+                }}
+                isDisabled={
+                  loading ||
+                  currentPage >=
+                    (paginationInfo?.totalPages || DEFAULT_PAY_NUMBER)
+                }
+                aria-label="Next Page"
+                icon={<BsChevronDoubleRight />}
+                textColor={PRIMARY_COLOR}
+                backgroundColor={SECONDARY_COLOR}
+                _hover={{
+                  bg: { PRIMARY_COLOR },
+                  textColor: "#fff",
+                }}
+              />
+            </Tooltip>
+            <Tooltip label="Last Page">
+              <IconButton
+                data-testid="last-page"
+                onClick={() => fetchNextPage(pageCount)}
+                aria-label="Last Page"
+                isDisabled={
+                  loading ||
+                  currentPage >=
+                    (paginationInfo?.totalPages || DEFAULT_PAY_NUMBER)
+                }
+                icon={<BsChevronRight />}
+                ml={4}
+                backgroundColor={SECONDARY_COLOR}
+                textColor={PRIMARY_COLOR}
+                _hover={{
+                  bg: { PRIMARY_COLOR },
+                  textColor: "#fff",
+                }}
+              />
+            </Tooltip>
+          </Flex>
         </Flex>
       )}
     </Flex>
