@@ -20,7 +20,7 @@ export const createColumns = ({ favoriteList, setFavorite, toast }: Props) => {
     {
       Header: "UNIQUE ID",
       accessor: "uniqueNumber",
-      width: "50px",
+      width: "200px",
       Cell: ({ value }: any) => (
         <Tooltip
           label={
@@ -50,7 +50,7 @@ export const createColumns = ({ favoriteList, setFavorite, toast }: Props) => {
               });
             }}
           >
-            <Text isTruncated>{value}</Text>
+            <Text noOfLines={1}>{value}</Text>
             <IconButton
               variant="unstyled"
               aria-label="Copy ID"
@@ -67,6 +67,7 @@ export const createColumns = ({ favoriteList, setFavorite, toast }: Props) => {
       Header: "ORIGINATOR",
       accessor: "companyName",
       width: "150px",
+      Cell: ({ value }: any) => <Text noOfLines={2}>{value}</Text>,
     },
     {
       Header: "ORIGINATOR COUNTRY",
@@ -77,6 +78,7 @@ export const createColumns = ({ favoriteList, setFavorite, toast }: Props) => {
       Header: "OWNER",
       accessor: "carbonCertificateOwnerAccount.carbonUser.company.name",
       width: "150px",
+      Cell: ({ value }: any) => <Text noOfLines={2}>{value}</Text>,
     },
     {
       Header: "OWNER COUNTRY",

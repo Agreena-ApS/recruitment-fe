@@ -5,7 +5,7 @@ export const ErrorMessage = () => {
   return (
     <Text
       textAlign="center"
-      width="1300px"
+      width="1350px"
       backgroundColor="#fff"
       borderRadius="10px"
       padding="200px"

@@ -101,7 +101,7 @@ export const DataTable = ({
   );
 
   return (
-    <Flex flexDirection="column" width="1300px">
+    <Flex flexDirection="column" width="1350px">
       <Flex
         flexDirection="column"
         width="100%"
@@ -165,7 +165,7 @@ export const DataTable = ({
         {!data.length && !loading ? <ErrorMessage /> : null}
       </Flex>
       {!hidePagination && (
-        <Flex justifyContent="space-between" m={4} alignItems="center">
+        <Flex justifyContent="space-between" my="3rem" alignItems="center">
           <Flex>
             <Tooltip label="First Page">
               <IconButton
