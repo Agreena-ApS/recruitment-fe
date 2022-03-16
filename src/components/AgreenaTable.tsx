@@ -148,12 +148,7 @@ export const DataTable = ({
                         borderLeftRadius: "10px",
                       }}
                     >
-                      <Box
-                        fontWeight="500"
-                        fontSize="large"
-                        isTruncated
-                        width="100%"
-                      >
+                      <Box fontWeight="500" fontSize="large" width="100%">
                         {cell.render("Cell")}
                       </Box>
                     </Td>
