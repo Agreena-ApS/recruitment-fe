@@ -115,6 +115,7 @@ export const createColumns = ({ favoriteList, setFavorite, toast }: Props) => {
 
         return (
           <IconButton
+            data-testid="add-favorite"
             onClick={addOrRemoveFavorite}
             aria-label="Add to favorites"
             variant="unstyled"
