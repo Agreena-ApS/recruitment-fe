@@ -254,6 +254,7 @@ export const DataTable = ({
               </NumberInputStepper>
             </NumberInput>
             <Select
+              data-testid="range-select"
               borderColor={SECONDARY_COLOR}
               w={32}
               disabled={loading}
