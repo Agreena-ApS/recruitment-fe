@@ -6,29 +6,31 @@ import { useLocalStorage } from "react-use";
 import { createColumns } from "../utils";
 
 const CertificateList = () => {
-	const toast = useToast();
-	const [favoriteList, setFavorite] = useLocalStorage<Certificate[]>("favorites");
+  const toast = useToast();
+  const [favoriteList, setFavorite] =
+    useLocalStorage<Certificate[]>("favorites");
 
-	const [currentPage, setCurrentPage] = useState(1);
-	const [perPage, setPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
 
-	const columns = useMemo(
-		() => createColumns({ favoriteList, setFavorite, toast }),
-		[favoriteList, setFavorite, toast]
-	);
+  const columns = useMemo(
+    () => createColumns({ favoriteList, setFavorite, toast }),
+    [favoriteList, setFavorite, toast]
+  );
 
-	return (
-		<Flex mt="5rem" alignItems="flex-start" justifyContent="center">
-			<DataTable
-				data={favoriteList || []}
-				columns={columns}
-				fetchNextPage={setCurrentPage}
-				currentPage={currentPage}
-				perPage={perPage}
-				perPageChange={setPerPage}
-			/>
-		</Flex>
-	);
+  return (
+    <Flex mt="5rem" alignItems="flex-start" justifyContent="center">
+      <DataTable
+        data={favoriteList || []}
+        columns={columns}
+        fetchNextPage={setCurrentPage}
+        currentPage={currentPage}
+        perPage={perPage}
+        perPageChange={setPerPage}
+        hidePagination
+      />
+    </Flex>
+  );
 };
 
 export default CertificateList;
