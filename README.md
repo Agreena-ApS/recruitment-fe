@@ -26,7 +26,9 @@ Mockup for the certificates table:
 
 ##### Requirements
 - Application should be written in the newest React with strong typing (TypeScript)
-- Application should be user-friendly (UX/UI)
+- Application should have a simple UX/UI
+- Application code quality is very important
+- Spend no more than 4 hours on the assignment
 
 If you have any other ideas how to make this app working and looking better - feel free to implement it!
 
